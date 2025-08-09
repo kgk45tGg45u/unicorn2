@@ -1,16 +1,27 @@
 import { gql } from 'apollo-server-express';
 
 export const typeDefs = gql`
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+  }
+
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
+
   type Product {
     id: ID!
     name: String!
     description: String
-    inputs: [ProductInput]
-    laborHours: Float
+    inputs: [ProductInput!]!  # inputs needed to produce this product
+    laborHours: Float!        # direct labor hours
   }
 
   type ProductInput {
-    productId: ID!
+    inputProduct: Product!
     quantity: Float!
   }
 
@@ -21,11 +32,15 @@ export const typeDefs = gql`
   }
 
   type Query {
-    products: [Product]
+    products: [Product!]!
     product(id: ID!): Product
+    me: User
   }
 
   type Mutation {
-    addProduct(name: String!, description: String, laborHours: Float!): Product
+    register(name: String!, email: String!, password: String!): AuthPayload!
+    login(email: String!, password: String!): AuthPayload!
+    addProduct(name: String!, description: String, laborHours: Float!): Product!
+    addProductInput(productId: ID!, inputProductId: ID!, quantity: Float!): ProductInput!
   }
 `;
