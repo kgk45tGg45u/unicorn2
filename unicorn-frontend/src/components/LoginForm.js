@@ -11,7 +11,7 @@ export default function LoginForm({ onLogin }) {
 
   const [login, { loading, error }] = useMutation(LOGIN, {
     onCompleted(data) {
-      localStorage.setItem('uniq_token', data.login.token);
+      localStorage.setItem('site_token', data.login.token);
       onLogin(data.login.user);
       // Redirect: go to the page they tried to visit, or profile if none
       const from = location.state?.from?.pathname || '/profile';

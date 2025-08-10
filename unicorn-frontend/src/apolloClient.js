@@ -8,7 +8,7 @@ const httpLink = createHttpLink({
 
 // Middleware to add the auth token to headers
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('uniq_token');
+  const token = localStorage.getItem('site_token');
   return {
     headers: {
       ...headers,

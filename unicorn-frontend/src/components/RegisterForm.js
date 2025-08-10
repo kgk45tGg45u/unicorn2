@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { REGISTER } from '../graphql/auth';
 
@@ -7,11 +8,13 @@ export default function RegisterForm({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
 
   const [register, { loading }] = useMutation(REGISTER, {
     onCompleted(data) {
-      localStorage.setItem('uniq_token', data.register.token);
+      localStorage.setItem('site_token', data.register.token);
       onLogin(data.register.user);
+      navigate('/profile', { replace: true });
     },
     onError(error) {
       setErrorMessage(error.message);

@@ -6,6 +6,7 @@ import { ME } from './graphql/auth';
 
 import RequireAuth from './components/RequireAuth';
 import LoginPage from './pages/LoginPage';
+import RegisterForm from './components/RegisterForm';
 import ProfilePage from './pages/ProfilePage';
 
 function AppContent() {
@@ -21,7 +22,7 @@ function AppContent() {
   }, [data]);
 
   const handleLogout = () => {
-    localStorage.removeItem('uniq_token');
+    localStorage.removeItem('site_token');
     setUser(null);
   };
 
@@ -34,6 +35,10 @@ function AppContent() {
         <Route
           path="/login"
           element={<LoginPage onLogin={setUser} />}
+        />
+        <Route
+          path="/register"
+          element={<RegisterForm onLogin={setUser}/>}
         />
         <Route
           path="/profile"

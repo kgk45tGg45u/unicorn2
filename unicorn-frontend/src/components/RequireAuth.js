@@ -1,10 +1,9 @@
-import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { ME } from '../graphql/auth';
 
 export default function RequireAuth({ children }) {
-  const token = localStorage.getItem('uniq_token');
+  const token = localStorage.getItem('site_token');
   const location = useLocation();
 
   // Always call useQuery, but skip execution if no token
@@ -25,7 +24,7 @@ export default function RequireAuth({ children }) {
 
   // Token present, but invalid according to backend
   if (!data?.me) {
-    localStorage.removeItem('uniq_token');
+    localStorage.removeItem('site_token');
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

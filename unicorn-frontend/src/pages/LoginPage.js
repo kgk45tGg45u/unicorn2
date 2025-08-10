@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../graphql/auth';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -21,7 +22,7 @@ export default function Login() {
       });
 
       if (data?.login?.token) {
-        localStorage.setItem('uniq_token', data.login.token);
+        localStorage.setItem('site_token', data.login.token);
         navigate(from, { replace: true });
       }
     } catch (err) {
@@ -50,6 +51,9 @@ export default function Login() {
         </button>
       </form>
       {error && <p style={{ color: 'red' }}>Login failed. Try again.</p>}
+      <p>
+        Don't have an account? <Link to="/register">Register</Link>
+      </p>
     </div>
   );
 }
