@@ -1,6 +1,6 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import { typeDefs } from './schema.js';
+import { typeDefs } from './schema/index.js';
 import { resolvers } from './resolvers/index.js';
 import jwt from 'jsonwebtoken';
 
