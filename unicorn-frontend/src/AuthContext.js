@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("site_token");
     setToken(null);
     navigate("/login");
   };

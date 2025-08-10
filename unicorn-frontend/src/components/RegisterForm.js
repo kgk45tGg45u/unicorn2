@@ -24,7 +24,7 @@ export default function RegisterForm({ onLogin }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMessage(null);
-    register({ variables: { name, email, password } });
+    register({ variables: { name, email, password, tokens: 0 } });
   };
 
   return (

@@ -16,11 +16,11 @@ export const authResolvers = {
   },
 
   Mutation: {
-    register: async (_, { name, email, password }) => {
+    register: async (_, { name, email, password, tokens }) => {
       const password_hash = await bcrypt.hash(password, 10);
       const { rows } = await pool.query(
-        'INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3) RETURNING id, name, email',
-        [name, email, password_hash]
+        'INSERT INTO users (name, email, password_hash, tokens) VALUES ($1, $2, $3, $4) RETURNING id, name, email, tokens',
+        [name, email, password_hash, tokens]
       );
       const user = rows[0];
       const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '7d' });
@@ -40,6 +40,7 @@ export const authResolvers = {
           id: user.id,
           name: user.name,
           email: user.email,
+          tokens: user.tokens
         },
       };
     },
